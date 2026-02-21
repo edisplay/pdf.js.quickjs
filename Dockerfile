@@ -2,7 +2,7 @@ FROM emscripten/emsdk:latest
 
 WORKDIR /tmp
 
-ENV QUICKJS_GIT_HASH 3f81070e573e3592728dbbbd04c84c498b20d6dc
+ENV QUICKJS_GIT_HASH fa628f8c523ecac8ce560c081411e91fcaba2d20
 ENV OUTPUT /js
 ENV QUICKJS /tmp/quickjs
 ENV INPUT /code/src

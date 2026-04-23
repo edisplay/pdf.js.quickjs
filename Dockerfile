@@ -2,10 +2,10 @@ FROM emscripten/emsdk:latest
 
 WORKDIR /tmp
 
-ENV QUICKJS_GIT_HASH fa628f8c523ecac8ce560c081411e91fcaba2d20
-ENV OUTPUT /js
-ENV QUICKJS /tmp/quickjs
-ENV INPUT /code/src
+ENV QUICKJS_GIT_HASH=fa628f8c523ecac8ce560c081411e91fcaba2d20
+ENV OUTPUT=/js
+ENV QUICKJS=/tmp/quickjs
+ENV INPUT=/code/src
 
 RUN git config --global user.email "you@example.com" && \
     git config --global user.name "Your Name" && \
@@ -18,4 +18,4 @@ ADD *.patch .
 RUN cd quickjs && \
     git am ../0001-Extra-stuff-for-use-with-PDF.js.patch
 
-CMD /code/compile.sh
+CMD ["/bin/sh", "-c", "/code/compile.sh"]

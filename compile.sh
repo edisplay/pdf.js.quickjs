@@ -19,10 +19,13 @@ emcc -o "${OUTPUT}/${OUTPUT_FILE}" \
         -DCONFIG_VERSION="\"1.0.0\"" \
         -DEMSCRIPTEN \
         -s ALLOW_MEMORY_GROWTH=1 \
+        -s MAXIMUM_MEMORY=2GB \
         -s WASM=1 \
-        -s SINGLE_FILE=1 \
         -s MODULARIZE=1 \
+        -s EXPORT_NAME="'QuickJS'" \
+        -s WASM_ASYNC_COMPILATION=1 \
         -s EXPORT_ES6=1 \
+        -s SINGLE_FILE=0 \
         -s ENVIRONMENT='web' \
         -s ERROR_ON_UNDEFINED_SYMBOLS=1 \
         -s NO_FILESYSTEM=1 \
@@ -32,8 +35,10 @@ emcc -o "${OUTPUT}/${OUTPUT_FILE}" \
         -s EXPORTED_FUNCTIONS='["_init", "_commFun", "_evalInSandbox", "_nukeSandbox", "_dumpMemoryUse", "_free"]' \
         -s EXPORTED_RUNTIME_METHODS='["ccall", "cwrap", "stringToNewUTF8"]' \
         -s ASSERTIONS=0 \
+        -DNDEBUG \
         -flto \
         --closure 1 \
         --js-library "${INPUT}/myjs.js"
 
+chmod ugo-x "${OUTPUT}/quickjs-eval.wasm"
 sed -i '1 i\/* THIS FILE IS GENERATED - DO NOT EDIT */' "${OUTPUT}/${OUTPUT_FILE}"
